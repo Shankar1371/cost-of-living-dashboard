@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_dashboard">
+
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="com.example.personalcostdashboard.ui.Dashboard.DashboardFragment"
+        android:label="Dashboard" />
+
+    <fragment
+        android:id="@+id/nav_add_expense"
+        android:name="com.example.personalcostdashboard.ui.AddExpense.AddExpenseFragment"
+        android:label="Add Expense" />
+
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="com.example.personalcostdashboard.ui.History.HistoryFragment"
+        android:label="History" />
+    <fragment
+        android:id="@+id/nav_inflation"
+        android:name="com.example.personalcostdashboard.ui.Inflation.InflationFragment"
+        android:label="Inflation Tool" />
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.personalcostdashboard.ui.Settings.SettingsFragment"
+        android:label="Settings" />
+
+
+</navigation>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="textInflationRate" type="id" />
+    <item name="textGreeting" type="id" />
+    <item name="textMonthlySpending" type="id" />
+    <item name="textInsight1" type="id" />
+    <item name="buttonAddExpense" type="id" />
+    <item name="buttonViewHistory" type="id" />
+    <item name="textInsight2" type="id" />
+    <item name="textTopCategory" type="id" />
+</resources>
