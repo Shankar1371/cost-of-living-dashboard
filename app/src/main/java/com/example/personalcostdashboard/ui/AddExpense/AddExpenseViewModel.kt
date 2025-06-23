@@ -1,13 +1,34 @@
-package com.example.personalcostdashboard.ui.AddExpense
+package com.example.personalcostdashboard.ui.addexpense
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.example.personalcostdashboard.data.Expense
+import com.example.personalcostdashboard.data.repository.ExpenseRepository
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
-class AddExpenseViewModel : ViewModel() {
+class AddExpenseViewModel(private val repository: ExpenseRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is gallery Fragment"
+    private val _selectedDate = MutableLiveData<String>()
+    val selectedDate: LiveData<String> get() = _selectedDate
+
+    val expenses = repository.getAllExpenses()  // LiveData<List<Expense>>
+
+    fun setDate(date: String) {
+        _selectedDate.value = date
     }
-    val text: LiveData<String> = _text
+
+    fun saveExpense(amount: Double, category: String, description: String, dateString: String) {
+        val expense = Expense(
+            amount = amount,
+            category = category,
+            description = description,
+            datestring = dateString
+        )
+
+        viewModelScope.launch {
+            repository.insertExpense(expense)
+        }
+    }
+
 }
