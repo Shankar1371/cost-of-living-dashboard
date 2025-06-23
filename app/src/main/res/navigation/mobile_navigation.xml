@@ -12,8 +12,9 @@
 
     <fragment
         android:id="@+id/nav_add_expense"
-        android:name="com.example.personalcostdashboard.ui.AddExpense.AddExpenseFragment"
-        android:label="Add Expense" />
+        android:name="com.example.personalcostdashboard.ui.addexpense.AddExpenseFragment"
+        android:label="Add Expense"
+        tools:layout="@layout/fragment_add_expense"/>
 
     <fragment
         android:id="@+id/nav_history"
