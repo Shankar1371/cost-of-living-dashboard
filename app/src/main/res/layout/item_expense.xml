@@ -51,9 +51,7 @@
                 android:textColor="#888888" />
         </LinearLayout>
 
-
-
-
+        <!-- Amount -->
         <TextView
             android:id="@+id/textViewAmount"
             android:layout_width="wrap_content"

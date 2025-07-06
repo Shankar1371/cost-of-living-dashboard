@@ -31,7 +31,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Category"
-        app:endIconMode="dropdown_menu"
+        app:endIconMode="dropdown"
         app:boxBackgroundMode="outline"
         app:layout_constraintTop_toBottomOf="@id/amountInputLayout"
         app:layout_constraintStart_toStartOf="parent"
