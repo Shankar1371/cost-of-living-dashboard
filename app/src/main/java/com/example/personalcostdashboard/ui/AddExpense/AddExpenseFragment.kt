@@ -1,4 +1,4 @@
-package com.example.personalcostdashboard.ui.AddExpense
+package com.example.personalcostdashboard.ui.addexpense
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -9,8 +9,10 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.personalcostdashboard.data.AppDatabase
+import com.example.personalcostdashboard.data.repository.ExpenseRepository
 import com.example.personalcostdashboard.databinding.FragmentAddExpenseBinding
-import com.example.personalcostdashboard.ui.AddExpense.AddExpenseViewModel
+import com.example.personalcostdashboard.ui.addexpense.AddExpenseViewModelFactory
 import java.util.*
 
 class AddExpenseFragment : Fragment() {
@@ -18,7 +20,10 @@ class AddExpenseFragment : Fragment() {
     private var _binding: FragmentAddExpenseBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: AddExpenseViewModel by viewModels()
+    private val viewModel: AddExpenseViewModel by viewModels {
+        val dao = AppDatabase.getDatabase(requireContext()).expenseDao()
+        AddExpenseViewModelFactory(ExpenseRepository(dao))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

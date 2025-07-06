@@ -1,12 +1,14 @@
-package com.example.personalcostdashboard.ui.AddExpense
+package com.example.personalcostdashboard.ui.addexpense
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.personalcostdashboard.data.Expense
-import com.example.personalcostdashboard.data.ExpenseRepository
+import com.example.personalcostdashboard.data.repository.ExpenseRepository
+import kotlinx.coroutines.launch
 
-class AddExpenseViewModel(repository: com.example.personalcostdashboard.data.repository.ExpenseRepository) : ViewModel() {
+class AddExpenseViewModel(private val repository: ExpenseRepository) : ViewModel() {
 
     private val _selectedDate = MutableLiveData<String>()
     val selectedDate: LiveData<String> get() = _selectedDate
@@ -22,6 +24,8 @@ class AddExpenseViewModel(repository: com.example.personalcostdashboard.data.rep
             dateString = dateString,
             description = description
         )
-        ExpenseRepository.addExpense(expense)
+        viewModelScope.launch {
+            repository.insertExpense(expense)
+        }
     }
 }
