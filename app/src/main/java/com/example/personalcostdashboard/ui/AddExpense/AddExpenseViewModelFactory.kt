@@ -3,7 +3,7 @@ package com.example.personalcostdashboard.ui.addexpense
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.personalcostdashboard.data.repository.ExpenseRepository
-import com.example.personalcostdashboard.ui.AddExpense.AddExpenseViewModel
+import com.example.personalcostdashboard.ui.addexpense.AddExpenseViewModel
 
 class AddExpenseViewModelFactory(
     private val repository: ExpenseRepository

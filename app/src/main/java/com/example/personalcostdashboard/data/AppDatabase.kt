@@ -1,11 +1,11 @@
 package com.example.personalcostdashboard.data
 
 import android.content.Context
-import androidx.databinding.adapters.Converters
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.personalcostdashboard.data.Converters
 
 @Database(entities = [Expense::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)  // If you're using Date or other complex types

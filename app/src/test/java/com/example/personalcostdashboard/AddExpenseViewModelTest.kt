@@ -1,7 +1,7 @@
 package com.example.personalcostdashboard
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.personalcostdashboard.ui.AddExpense.AddExpenseViewModel
+import com.example.personalcostdashboard.ui.addexpense.AddExpenseViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
