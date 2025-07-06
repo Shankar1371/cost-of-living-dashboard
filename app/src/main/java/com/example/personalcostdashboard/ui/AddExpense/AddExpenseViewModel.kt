@@ -3,8 +3,10 @@ package com.example.personalcostdashboard.ui.AddExpense
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.personalcostdashboard.data.Expense
+import com.example.personalcostdashboard.data.ExpenseRepository
 
-class AddExpenseViewModel : ViewModel() {
+class AddExpenseViewModel(repository: com.example.personalcostdashboard.data.repository.ExpenseRepository) : ViewModel() {
 
     private val _selectedDate = MutableLiveData<String>()
     val selectedDate: LiveData<String> get() = _selectedDate
@@ -13,8 +15,13 @@ class AddExpenseViewModel : ViewModel() {
         _selectedDate.value = date
     }
 
-    fun saveExpense(amount: String, category: String, description: String, date: String) {
-        // Replace with DB insert logic later
-        println("Saved expense: $amount | $category | $description | $date")
+    fun saveExpense(amount: Double, category: String, description: String, dateString: String) {
+        val expense = Expense(
+            amount = amount,
+            category = category,
+            dateString = dateString,
+            description = description
+        )
+        ExpenseRepository.addExpense(expense)
     }
 }

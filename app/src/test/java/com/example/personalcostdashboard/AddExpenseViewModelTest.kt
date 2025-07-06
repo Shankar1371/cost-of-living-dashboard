@@ -13,7 +13,7 @@ class AddExpenseViewModelTest {
 
     @Test
     fun setDate_updatesSelectedDate() {
-        val viewModel = AddExpenseViewModel()
+        val viewModel = AddExpenseViewModel(repository)
         viewModel.setDate("1/1/2025")
         assertEquals("1/1/2025", viewModel.selectedDate.value)
     }

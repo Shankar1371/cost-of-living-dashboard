@@ -30,8 +30,8 @@
         android:id="@+id/categoryInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Category"
-        app:endIconMode="dropdown"
+
+        app:endIconMode="dropdown_menu"
         app:boxBackgroundMode="outline"
         app:layout_constraintTop_toBottomOf="@id/amountInputLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
             android:id="@+id/dropdownCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"/>
+            android:hint="category"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Description -->
