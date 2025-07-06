@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.androidx.adapters)
     implementation(libs.androidx.lifecycle.viewmodel.android)
     testImplementation(libs.junit)
+    testImplementation(libs.androidx.arch.core.testing)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
