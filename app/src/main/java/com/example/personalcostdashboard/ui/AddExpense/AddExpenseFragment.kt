@@ -1,4 +1,4 @@
-package com.example.personalcostdashboard.ui.addexpense
+package com.example.personalcostdashboard.ui.AddExpense
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -59,12 +59,12 @@ class AddExpenseFragment : Fragment() {
 
     private fun setupAddButton() {
         binding.buttonAddExpense.setOnClickListener {
-            val amount = binding.editTextAmount.text.toString()
+            val amount = binding.editTextAmount.text.toString().toDoubleOrNull()
             val category = binding.dropdownCategory.text.toString()
             val description = binding.editTextDescription.text.toString()
             val date = viewModel.selectedDate.value ?: ""
 
-            if (amount.isEmpty() || category.isEmpty() || date.isEmpty()) {
+            if (amount == null || category.isEmpty() || date.isEmpty()) {
                 Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
