@@ -9,25 +9,43 @@
     tools:openDrawer="start"
     tools:context=".MainActivity">
 
-    <!-- Main Content -->
+    <!-- Main Content with AppBar and Navigation -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- App Bar Layout -->
-        <include
-            layout="@layout/app_bar_main"
+        <!-- AppBar (Toolbar) -->
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.PersonalCostDashboard.AppBarOverlay">
 
-        <!-- NavHostFragment for Navigation Component -->
-        <fragment
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/Theme.PersonalCostDashboard.PopupOverlay" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Navigation Host Fragment (only one!) -->
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment_content_main"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_graph" />
+            app:navGraph="@navigation/nav_graph"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <!-- Floating Action Button -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            app:srcCompat="@android:drawable/ic_dialog_email" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <!-- Navigation Drawer -->
