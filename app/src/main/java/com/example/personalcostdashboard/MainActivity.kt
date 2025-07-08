@@ -18,6 +18,7 @@ import com.example.personalcostdashboard.ui.addexpense.AddExpenseViewModel
 import com.example.personalcostdashboard.ui.addexpense.AddExpenseViewModelFactory
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,13 +33,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Setup toolbar
-        setSupportActionBar(binding.appBarMain.toolbar)
-
-        // FAB click action
-        binding.appBarMain.fab.setOnClickListener { view ->
+        setSupportActionBar(findViewById(R.id.toolbar))
+        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+
 
         // NavController setup
         val navHostFragment = supportFragmentManager

@@ -1,48 +1,31 @@
-package com.example.personalcostdashboard.ui.history.adapter
+package com.example.personalcostdashboard.ui.History
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ListAdapter
-import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.personalcostdashboard.R
 import com.example.personalcostdashboard.data.Expense
+import com.example.personalcostdashboard.databinding.ItemExpenseBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-class ExpenseAdapter : ListAdapter<Expense, ExpenseAdapter.ExpenseViewHolder>(DiffCallback) {
+class ExpenseAdapter(private val expenses: List<Expense>) :
+    RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder>() {
+
+    inner class ExpenseViewHolder(val binding: ItemExpenseBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpenseViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_expense, parent, false)
-        return ExpenseViewHolder(view)
+        val binding = ItemExpenseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ExpenseViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
-        val expense = getItem(position)
-        holder.bind(expense)
+        val expense = expenses[position]
+        holder.binding.textViewTitle.text = expense.description
+        val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        holder.binding.textViewDate.text = formatter.format(expense.dateString)
+        holder.binding.textViewAmount.text = "$${"%.2f".format(expense.amount)}"
     }
 
-    class ExpenseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val textAmount: TextView = itemView.findViewById(R.id.textAmount)
-        private val textCategory: TextView = itemView.findViewById(R.id.textCategory)
-        private val textDate: TextView = itemView.findViewById(R.id.textDate)
-
-        fun bind(expense: Expense) {
-            textAmount.text = "$${"%.2f".format(expense.amount)}"
-            textCategory.text = expense.category
-            textDate.text = expense.date
-        }
-    }
-
-    companion object DiffCallback : DiffUtil.ItemCallback<Expense>() {
-        override fun areItemsTheSame(oldItem: Expense, newItem: Expense): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Expense, newItem: Expense): Boolean {
-            return oldItem == newItem
-        }
-    }
+    override fun getItemCount(): Int = expenses.size
 }
