@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.personalcostdashboard.data.Expense
 import com.example.personalcostdashboard.databinding.FragmentHistoryBinding
-import com.example.personalcostdashboard.ui.common.ExpenseAdapter
 
-class HistoryFragment : Fragment() {
+class HistoryFragment : Fragment(), OnExpenseClickListener {
 
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
@@ -21,7 +22,7 @@ class HistoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         setupRecyclerView()
@@ -30,15 +31,24 @@ class HistoryFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = ExpenseAdapter()
+        adapter = ExpenseAdapter(emptyList(), this) // Pass listener here
         binding.recyclerViewHistory.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewHistory.adapter = adapter
     }
 
     private fun observeExpenses() {
         viewModel.expenses.observe(viewLifecycleOwner) { expenses ->
-            adapter.submitList(expenses)
+            adapter.updateExpenses(expenses)
         }
+    }
+
+    override fun onEditClick(expense: Expense) {
+        val action = HistoryFragmentDirections.actionNavHistoryToNavAddExpense()
+        findNavController().navigate(action)
+    }
+
+    override fun onDeleteClick(expense: Expense) {
+        viewModel.deleteExpense(expense)
     }
 
     override fun onDestroyView() {

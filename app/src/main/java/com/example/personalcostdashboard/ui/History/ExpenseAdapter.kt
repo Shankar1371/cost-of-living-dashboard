@@ -6,10 +6,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.personalcostdashboard.data.Expense
 import com.example.personalcostdashboard.databinding.ItemExpenseBinding
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
-class ExpenseAdapter(private val expenses: List<Expense>) :
-    RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder>() {
+// Interface for handling clicks
+interface OnExpenseClickListener {
+    fun onEditClick(expense: Expense)
+    fun onDeleteClick(expense: Expense)
+}
+
+class ExpenseAdapter(
+    private var expenses: List<Expense>,
+    private val listener: OnExpenseClickListener
+) : RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder>() {
 
     inner class ExpenseViewHolder(val binding: ItemExpenseBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -21,11 +30,24 @@ class ExpenseAdapter(private val expenses: List<Expense>) :
 
     override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
         val expense = expenses[position]
-        holder.binding.textViewTitle.text = expense.description
-        val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        holder.binding.textViewDate.text = formatter.format(expense.dateString)
-        holder.binding.textViewAmount.text = "$${"%.2f".format(expense.amount)}"
+
+        holder.binding.textViewDate.text=expense.dateString;
+
+        with(holder.binding) {
+            textViewTitle.text = expense.description
+            textViewDate.text = expense.dateString
+            textViewAmount.text = "$${"%.2f".format(expense.amount)}"
+
+            // Click listeners for Edit and Delete
+            btnEdit.setOnClickListener { listener.onEditClick(expense) }
+            btnDelete.setOnClickListener { listener.onDeleteClick(expense) }
+        }
     }
+    fun updateExpenses(newExpenses: List<Expense>) {
+        expenses = newExpenses
+        notifyDataSetChanged()
+    }
+
 
     override fun getItemCount(): Int = expenses.size
 }
