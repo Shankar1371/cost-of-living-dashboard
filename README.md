@@ -1,19 +1,39 @@
-This project centers around the creation of a per
-sonalized Android dashboard where users can track and analyze
- their rising cost of living in a dynamic urban environment. The
- app fetches and analyzes information from various sources like
- local market price trends, inflationary indices, rent changes, and
- the daily expenses entered by the users. Consolidating all such
- information with the app means that users can get their data-driven
- real-time insights on their financial well-being. The dashboard
- features a clean, minimalistic, and interactive user interface for
- all users to access and use with ease. The application targets
- students, working professionals, and families who want to see
- their spending patterns, set goals toward budgeting, and receive
- alerts on noteworthy changes in their economic situation in their
- vicinity. Besides, trend predictions, based on historical data, cost
- optimization personalization, and comparison tools to assess one
- area against another or one city against another are available. The
- overarching vision is to offer users with the necessary information
- and tools to make decisions that affect their lifestyle and financial
- planning in an increasingly volatile economic landscape.
+# Cost of Living Dashboard
+
+Cost of Living Dashboard is an Android application designed to help users monitor and analyze their personal expenses alongside public cost-of-living indicators such as inflation and rent trends. The goal of the project is to provide a single place where individuals can view both their own spending data and broader economic information so that they can make informed financial decisions.
+
+## Project Idea
+
+Many people struggle to keep track of rising living expenses and how those changes impact their personal budgets. This project aims to create an easy-to-use dashboard that combines:
+
+- **Personal expenses** entered by the user.
+- **Local market trends** such as price changes in groceries or utilities.
+- **Inflation and rent indices** retrieved from public sources.
+
+By aggregating these data points, the app offers real-time insights into how costs are evolving and where the user's money is going. Historical data is stored locally so the app can display trends over time, provide simple analytics, and send alerts when significant changes occur.
+
+## End Goal
+
+The ultimate objective of Cost of Living Dashboard is to empower users with actionable information about their finances. The app is intended to:
+
+1. Present a clear overview of day-to-day spending.
+2. Compare personal expenses with city or region level statistics.
+3. Help users set budgeting goals and track progress toward them.
+4. Give warnings or recommendations when costs change dramatically.
+
+With these features, students, professionals, and families can better understand their cost of living and plan accordingly.
+
+## Building the Project
+
+This repository contains a standard Android Studio project. To build and run the application locally:
+
+1. Install [Android Studio](https://developer.android.com/studio) (Electric Eel or newer recommended).
+2. Clone this repository.
+3. Open the project in Android Studio and let Gradle download the required dependencies.
+4. Connect an Android device or use the emulator to build and run the app.
+
+The project uses Kotlin, AndroidX libraries, Navigation components, and Room for local data storage. All dependencies are defined in `app/build.gradle.kts`.
+
+## Contributing
+
+Contributions are welcome! If you would like to add features or fix bugs, please open an issue or submit a pull request. Make sure to run the existing unit tests before pushing any changes.
