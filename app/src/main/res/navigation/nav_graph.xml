@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/nav_inflation"
-        android:name="com.example.personalcostdashboard.ui.Inflation.InflationFragment"
+        android:name="com.example.personalcostdashboard.ui.inflation.InflationFragment"
         android:label="Inflation"
         tools:layout="@layout/fragment_inflation" />
 

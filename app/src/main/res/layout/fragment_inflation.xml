@@ -1,145 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/inflationFragment"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".ui.inflation.InflationFragment">
+    android:padding="16dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/inflation_container"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:paddingBottom="32dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <!-- Personal Inflation Rate -->
-        <TextView
-            android:id="@+id/textPersonalInflation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Your Personal Inflation"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:id="@+id/textInflationPercentage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="6.3%"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/holo_red_dark"
-            android:layout_marginTop="8dp" />
-
-        <!-- Comparison Chart Placeholder -->
-        <ImageView
-            android:id="@+id/chartImage"
+        <!-- Line Chart -->
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="250dp"
             android:layout_marginTop="16dp"
-            android:scaleType="fitCenter"
-            android:background="@drawable/rounded_grey_bg"
-            android:contentDescription="Inflation comparison chart" />
+            android:layout_marginBottom="16dp" />
 
-        <!-- Category Breakdown -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Price Change by Category"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="24dp" />
-
-        <!-- Cards: Rent, Fuel, Groceries -->
-        <LinearLayout
+        <!-- Metric Cards -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="8dp"
-            android:divider="?android:attr/dividerHorizontal"
-            android:showDividers="middle">
+            android:layout_marginBottom="12dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp">
 
-            <!-- Example: Rent -->
             <LinearLayout
+                android:orientation="vertical"
+                android:padding="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:orientation="horizontal"
-                android:background="@drawable/rounded_card_bg">
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textGasPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gas Price: $--/gal"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textElectricity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Electricity Cost: $--/kWh"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textGroceryIndex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Grocery Index"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textRent"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Rent"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/textRentChange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+4.5%"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:textSize="14sp" />
+                    android:text="Avg Rent: $---/month"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <!-- Repeat for Fuel -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:orientation="horizontal"
-                android:background="@drawable/rounded_card_bg">
-
-                <TextView
-                    android:id="@+id/textFuel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Fuel"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/textFuelChange"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+6.9%"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <!-- Repeat for Groceries -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:orientation="horizontal"
-                android:background="@drawable/rounded_card_bg">
-
-                <TextView
-                    android:id="@+id/textGroceries"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Groceries"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/textGroceryChange"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+3.2%"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+</ScrollView>
