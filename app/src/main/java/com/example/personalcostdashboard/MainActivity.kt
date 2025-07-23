@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_dashboard,
                 R.id.nav_add_expense,
                 R.id.nav_history,
+                R.id.nav_analytics,
                 R.id.nav_inflation,
                 R.id.nav_settings
             ), drawerLayout

@@ -1,60 +1,82 @@
-package com.example.personalcostdashboard.ui.Analytics
+package com.example.personalcostdashboard.ui.analytics
 
+import android.graphics.Color
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.example.personalcostdashboard.R
+import androidx.fragment.app.viewModels
+import com.example.personalcostdashboard.databinding.FragmentAnalyticsBinding
+import com.example.personalcostdashboard.ui.analytics.viewmodel.AnalyticsViewModel
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AnalyticsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
+
 class AnalyticsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentAnalyticsBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: AnalyticsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_analytics, container, false)
+    ): View {
+        _binding = FragmentAnalyticsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AnalyticsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AnalyticsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        observeAnalyticsData()
+    }
+
+    private fun observeAnalyticsData() {
+        viewModel.analyticsData.observe(viewLifecycleOwner) { data ->
+            // Summary
+            binding.textTotalSpent.text = "Spent: $${String.format("%.2f", data.totalSpent)}"
+            binding.textTotalSaved.text = "Saved: $${String.format("%.2f", data.totalSaved)}"
+            binding.textAvgExpense.text = "Avg/Day: $${String.format("%.2f", data.averageDaily)}"
+
+            // Pie Chart - category-wise
+            val pieEntries = data.categoryWise.map {
+                PieEntry(it.value.toFloat(), it.key)
             }
+
+            val pieDataSet = PieDataSet(pieEntries, "Spending by Category")
+            pieDataSet.colors = listOf(
+                Color.BLUE, Color.RED, Color.GREEN, Color.MAGENTA, Color.CYAN, Color.YELLOW
+            )
+
+            binding.piechart.data = PieData(pieDataSet)
+            binding.piechart.description.isEnabled = false
+            binding.piechart.invalidate()
+
+            // Line Chart - monthly trend
+            val entries = data.monthlySpend.entries.mapIndexed { index, entry ->
+                Entry(index.toFloat(), entry.value.toFloat())
+            }
+
+            val lineDataSet = LineDataSet(entries, "Monthly Trend")
+            lineDataSet.color = Color.BLACK
+            lineDataSet.setCircleColor(Color.BLUE)
+            lineDataSet.valueTextSize = 10f
+
+            val months = data.monthlySpend.keys.toList()
+            binding.linechart.data = LineData(lineDataSet)
+            binding.linechart.xAxis.valueFormatter = IndexAxisValueFormatter(months)
+            binding.linechart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+            binding.linechart.axisRight.isEnabled = false
+            binding.linechart.description.isEnabled = false
+            binding.linechart.invalidate()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
