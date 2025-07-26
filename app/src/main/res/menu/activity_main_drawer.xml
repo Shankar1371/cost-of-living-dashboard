@@ -1,15 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- menu/activity_main_drawer.xml -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_dashboard" android:title="Dashboard" />
-        <item android:id="@+id/nav_add_expense" android:title="Add Expense" />
-        <item android:id="@+id/nav_history" android:title="History" />
-        <item android:id="@+id/nav_analytics" android:title="Analytics" />
-        <item android:id="@+id/nav_inflation" android:title="Inflation Tool" />
-        <item android:id="@+id/nav_settings" android:title="Settings" />
-        <item android:id="@+id/nav_logout" android:title="Logout" />
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_dashboard"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/nav_add_expense"
+            android:icon="@drawable/ic_add"
+            android:title="Add Expense" />
+        <item
+            android:id="@+id/nav_analytics"
+            android:icon="@drawable/ic_analytics"
+            android:title="Analytics" />
+        <item
+            android:id="@+id/nav_inflation"
+            android:icon="@drawable/ic_trending_up"
+            android:title="Inflation Tracker" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
     </group>
 </menu>

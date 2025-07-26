@@ -12,7 +12,7 @@
         android:padding="24dp">
 
         <!-- Header Card -->
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/headerCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_add_expense"
-                    android:tint="@color/white"
+                    app:tint="@color/white"
                     android:layout_marginBottom="8dp"/>
 
                 <TextView
@@ -56,10 +56,10 @@
                     android:layout_marginTop="4dp"/>
 
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.cardview.widget.CardView>
 
         <!-- Form Card -->
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/formCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                         android:layout_marginEnd="8dp"
                         android:fontFamily="@font/roboto_medium"/>
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <LinearLayout
                         android:id="@+id/amountInputLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                         app:startIconDrawable="@drawable/ic_attach_money"
                         app:startIconTint="@color/primary">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <EditText
                             android:id="@+id/editTextAmount"
                             android:inputType="numberDecimal"
                             android:layout_width="match_parent"
@@ -118,11 +118,11 @@
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="@color/text_primary"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <!-- Category Dropdown -->
-                <com.google.android.material.textfield.TextInputLayout
+                <LinearLayout
                     android:id="@+id/categoryInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -145,10 +145,10 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
 
                 <!-- Description -->
-                <com.google.android.material.textfield.TextInputLayout
+                <LinearLayout
                     android:id="@+id/descriptionInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -164,17 +164,17 @@
                     app:hintTextColor="@color/text_secondary"
                     android:layout_marginBottom="20dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <EditText
                         android:id="@+id/editTextDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp"
                         android:maxLines="3"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
 
                 <!-- Date Picker Button -->
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/buttonSelectDate"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
@@ -193,10 +193,10 @@
                     android:fontFamily="@font/roboto_medium"/>
 
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.cardview.widget.CardView>
 
         <!-- Add Expense Button -->
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/buttonAddExpense"
             android:layout_width="0dp"
             android:layout_height="64dp"

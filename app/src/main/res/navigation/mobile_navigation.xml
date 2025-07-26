@@ -18,7 +18,7 @@
         tools:layout="@layout/fragment_add_expense"/>
     <fragment
         android:id="@+id/nav_analytics"
-        android:name="com.example.personalcostdashboard.ui.Analytics.AnalyticsFragment"
+        android:name="com.example.personalcostdashboard.ui.analytics.AnalyticsFragment"
         android:label="Analytics" />
 
     <fragment
@@ -27,7 +27,7 @@
         android:label="History" />
     <fragment
         android:id="@+id/nav_inflation"
-        android:name="com.example.personalcostdashboard.ui.Inflation.InflationFragment"
+        android:name="com.example.personalcostdashboard.ui.inflation.InflationFragment"
         android:label="Inflation Tool" />
     <fragment
         android:id="@+id/nav_settings"

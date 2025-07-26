@@ -1,11 +1,4 @@
-<drawable android:name="gradient_analytics_background"
-    xmlns:android="http://schemas.android.com/apk/res/android" class="">
-        <shape android:shape="rectangle">
-            <gradient
-                android:startColor="#2196F3"
-                android:endColor="#9C27B0"
-                android:angle="135"/>
-        </shape>
-    </drawable>
-
-
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#F3F4F6" />
+    <corners android:radius="16dp" />
+</shape>
