@@ -1,0 +1,14 @@
+Index: app/src/main/res/color/success.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<selector xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n\r\n</selector>
+===================================================================
+diff --git a/app/src/main/res/color/success.xml b/app/src/main/res/color/success.xml
+--- a/app/src/main/res/color/success.xml	(revision 09413bec208242f8af5c2dcc0195951f52445918)
++++ b/app/src/main/res/color/success.xml	(date 1753487422863)
+@@ -1,4 +1,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-</selector>
+\ No newline at end of file

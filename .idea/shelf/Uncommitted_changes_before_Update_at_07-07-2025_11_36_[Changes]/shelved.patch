@@ -1,0 +1,58 @@
+Index: app/src/main/java/com/example/personalcostdashboard/ui/data/ExpenseDao.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.personalcostdashboard.data\r\n\r\nimport androidx.lifecycle.LiveData\r\nimport androidx.room.*\r\n\r\n@Dao\r\ninterface ExpenseDao {\r\n\r\n    @Query(\"SELECT * FROM expenses ORDER BY date DESC\")\r\n    fun getAllExpenses(): LiveData<List<Expense>>\r\n\r\n    @Insert(onConflict = OnConflictStrategy.REPLACE)\r\n    suspend fun insertExpense(expense: Expense)\r\n\r\n    @Query(\"DELETE FROM expenses\")\r\n    suspend fun deleteAll()\r\n}\r\n
+===================================================================
+diff --git a/app/src/main/java/com/example/personalcostdashboard/ui/data/ExpenseDao.kt b/app/src/main/java/com/example/personalcostdashboard/ui/data/ExpenseDao.kt
+--- a/app/src/main/java/com/example/personalcostdashboard/ui/data/ExpenseDao.kt	(revision ffd0ffb930773f2fe592bee6266bcb3b74425041)
++++ b/app/src/main/java/com/example/personalcostdashboard/ui/data/ExpenseDao.kt	(date 1751905050766)
+@@ -6,7 +6,7 @@
+ @Dao
+ interface ExpenseDao {
+ 
+-    @Query("SELECT * FROM expenses ORDER BY date DESC")
++    @Query("SELECT * FROM expenses ORDER BY dateString DESC")
+     fun getAllExpenses(): LiveData<List<Expense>>
+ 
+     @Insert(onConflict = OnConflictStrategy.REPLACE)
+Index: app/src/main/java/com/example/personalcostdashboard/ui/data/Expense.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.personalcostdashboard.data\r\n\r\nimport androidx.room.Entity\r\nimport androidx.room.PrimaryKey\r\nimport java.util.*\r\n\r\n@Entity(tableName = \"expenses\")\r\ndata class Expense(\r\n    @PrimaryKey(autoGenerate = true) val id: Int = 0,\r\n    val amount: Double,\r\n    val category: String,\r\n    val datestring: String,\r\n    val description: String\r\n)\r\n
+===================================================================
+diff --git a/app/src/main/java/com/example/personalcostdashboard/ui/data/Expense.kt b/app/src/main/java/com/example/personalcostdashboard/ui/data/Expense.kt
+--- a/app/src/main/java/com/example/personalcostdashboard/ui/data/Expense.kt	(revision ffd0ffb930773f2fe592bee6266bcb3b74425041)
++++ b/app/src/main/java/com/example/personalcostdashboard/ui/data/Expense.kt	(date 1751905019237)
+@@ -1,5 +1,6 @@
+ package com.example.personalcostdashboard.data
+ 
++import androidx.room.ColumnInfo
+ import androidx.room.Entity
+ import androidx.room.PrimaryKey
+ import java.util.*
+@@ -9,6 +10,7 @@
+     @PrimaryKey(autoGenerate = true) val id: Int = 0,
+     val amount: Double,
+     val category: String,
+-    val datestring: String,
++    @ColumnInfo(name = "date")
++    val date: String,
+     val description: String
+ )
+Index: app/src/main/java/com/example/personalcostdashboard/ui/data/AppDatabase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.personalcostdashboard.data\r\n\r\nimport android.content.Context\r\nimport androidx.databinding.adapters.Converters\r\nimport androidx.room.Database\r\nimport androidx.room.Room\r\nimport androidx.room.RoomDatabase\r\nimport androidx.room.TypeConverters\r\n\r\n@Database(entities = [Expense::class], version = 1, exportSchema = false)\r\n@TypeConverters(Converters::class)  // If you're using Date or other complex types\r\nabstract class AppDatabase : RoomDatabase() {\r\n\r\n    abstract fun expenseDao(): ExpenseDao\r\n\r\n    companion object {\r\n        @Volatile\r\n        private var INSTANCE: AppDatabase? = null\r\n\r\n        fun getDatabase(context: Context): AppDatabase {\r\n            return INSTANCE ?: synchronized(this) {\r\n                val instance = Room.databaseBuilder(\r\n                    context.applicationContext,\r\n                    AppDatabase::class.java,\r\n                    \"personal_cost_dashboard_db\"\r\n                ).build()\r\n                INSTANCE = instance\r\n                instance\r\n            }\r\n        }\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/app/src/main/java/com/example/personalcostdashboard/ui/data/AppDatabase.kt b/app/src/main/java/com/example/personalcostdashboard/ui/data/AppDatabase.kt
+--- a/app/src/main/java/com/example/personalcostdashboard/ui/data/AppDatabase.kt	(revision ffd0ffb930773f2fe592bee6266bcb3b74425041)
++++ b/app/src/main/java/com/example/personalcostdashboard/ui/data/AppDatabase.kt	(date 1751829935379)
+@@ -7,7 +7,7 @@
+ import androidx.room.RoomDatabase
+ import androidx.room.TypeConverters
+ 
+-@Database(entities = [Expense::class], version = 1, exportSchema = false)
++@Database(entities = [Expense::class], version = 2, exportSchema = false)
+ @TypeConverters(Converters::class)  // If you're using Date or other complex types
+ abstract class AppDatabase : RoomDatabase() {
+ 
