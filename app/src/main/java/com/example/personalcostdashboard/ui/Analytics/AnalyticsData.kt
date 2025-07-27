@@ -5,5 +5,6 @@ data class AnalyticsData(
     val totalSaved: Double,
     val averageDaily: Double,
     val categoryWise: Map<String, Double>,
-    val monthlySpend: Map<String, Double>
+    val monthlySpend: Map<String, Double>,
+    val insightText: String
 )

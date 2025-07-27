@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.personalcostdashboard.PersonalCostDashboardApp
 import com.example.personalcostdashboard.databinding.FragmentAnalyticsBinding
 import com.example.personalcostdashboard.ui.analytics.viewmodel.AnalyticsViewModel
+import com.example.personalcostdashboard.ui.analytics.viewmodel.AnalyticsViewModelFactory
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
@@ -15,7 +17,11 @@ class AnalyticsFragment : Fragment() {
 
     private var _binding: FragmentAnalyticsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AnalyticsViewModel by viewModels()
+
+    // ✅ Connect your real repository via Factory
+    private val viewModel: AnalyticsViewModel by viewModels {
+        AnalyticsViewModelFactory((requireActivity().application as PersonalCostDashboardApp).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,12 +39,13 @@ class AnalyticsFragment : Fragment() {
     private fun observeAnalyticsData() {
         viewModel.analyticsData.observe(viewLifecycleOwner) { data ->
 
-            // LiveData values displayed directly
+            // Text updates
             binding.textTotalSpent.text = "Spent: $${String.format("%.2f", data.totalSpent)}"
             binding.textTotalSaved.text = "Saved: $${String.format("%.2f", data.totalSaved)}"
             binding.textAvgExpense.text = "Avg/Day: $${String.format("%.2f", data.averageDaily)}"
+            binding.insightText.text = data.insightText
 
-            // LiveData -> PieChart
+            // Pie chart for category-wise data
             val pieDataSet = PieDataSet(
                 data.categoryWise.map { PieEntry(it.value.toFloat(), it.key) },
                 "Spending by Category"
@@ -64,7 +71,7 @@ class AnalyticsFragment : Fragment() {
                 invalidate()
             }
 
-            // LiveData -> LineChart
+            // Line chart for monthly trend
             val lineDataSet = LineDataSet(
                 data.monthlySpend.entries.mapIndexed { index, entry ->
                     Entry(index.toFloat(), entry.value.toFloat())
@@ -90,7 +97,6 @@ class AnalyticsFragment : Fragment() {
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
