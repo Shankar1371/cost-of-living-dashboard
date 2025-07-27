@@ -44,5 +44,10 @@
     <color name="insight_accent">#0EA5E9</color>
     <color name="insight_text">#0C4A6E</color>
     <color name="insight_text_secondary">#075985</color>
+    <color name="surface_light">#36F4EE</color>
+    <color name="stroke_light">#E9ECEF</color>
+    <color name="primary_very_light">#E3F2FD</color>
+    <color name="primary_dark">#1565C0</color>
+    <color name="surface_disabled">#BDBDBD</color>
 
 </resources>

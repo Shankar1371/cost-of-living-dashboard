@@ -11,9 +11,6 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
-
-
-
 class AnalyticsFragment : Fragment() {
 
     private var _binding: FragmentAnalyticsBinding? = null
@@ -30,50 +27,70 @@ class AnalyticsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observeAnalyticsData()
     }
 
     private fun observeAnalyticsData() {
         viewModel.analyticsData.observe(viewLifecycleOwner) { data ->
-            // Summary
+
+            // LiveData values displayed directly
             binding.textTotalSpent.text = "Spent: $${String.format("%.2f", data.totalSpent)}"
             binding.textTotalSaved.text = "Saved: $${String.format("%.2f", data.totalSaved)}"
             binding.textAvgExpense.text = "Avg/Day: $${String.format("%.2f", data.averageDaily)}"
 
-            // Pie Chart - category-wise
-            val pieEntries = data.categoryWise.map {
-                PieEntry(it.value.toFloat(), it.key)
+            // LiveData -> PieChart
+            val pieDataSet = PieDataSet(
+                data.categoryWise.map { PieEntry(it.value.toFloat(), it.key) },
+                "Spending by Category"
+            ).apply {
+                colors = listOf(
+                    Color.parseColor("#1976D2"),
+                    Color.parseColor("#D32F2F"),
+                    Color.parseColor("#388E3C"),
+                    Color.parseColor("#FBC02D"),
+                    Color.parseColor("#7B1FA2"),
+                    Color.parseColor("#0288D1")
+                )
+                valueTextSize = 12f
+                sliceSpace = 2f
             }
 
-            val pieDataSet = PieDataSet(pieEntries, "Spending by Category")
-            pieDataSet.colors = listOf(
-                Color.BLUE, Color.RED, Color.GREEN, Color.MAGENTA, Color.CYAN, Color.YELLOW
-            )
-
-            binding.piechart.data = PieData(pieDataSet)
-            binding.piechart.description.isEnabled = false
-            binding.piechart.invalidate()
-
-            // Line Chart - monthly trend
-            val entries = data.monthlySpend.entries.mapIndexed { index, entry ->
-                Entry(index.toFloat(), entry.value.toFloat())
+            binding.piechart.apply {
+                this.data = PieData(pieDataSet)
+                setUsePercentValues(false)
+                description.isEnabled = false
+                isDrawHoleEnabled = true
+                animateY(800)
+                invalidate()
             }
 
-            val lineDataSet = LineDataSet(entries, "Monthly Trend")
-            lineDataSet.color = Color.BLACK
-            lineDataSet.setCircleColor(Color.BLUE)
-            lineDataSet.valueTextSize = 10f
+            // LiveData -> LineChart
+            val lineDataSet = LineDataSet(
+                data.monthlySpend.entries.mapIndexed { index, entry ->
+                    Entry(index.toFloat(), entry.value.toFloat())
+                },
+                "Monthly Trend"
+            ).apply {
+                color = Color.BLACK
+                setCircleColor(Color.BLUE)
+                valueTextSize = 10f
+                lineWidth = 2f
+                mode = LineDataSet.Mode.CUBIC_BEZIER
+            }
 
-            val months = data.monthlySpend.keys.toList()
-            binding.linechart.data = LineData(lineDataSet)
-            binding.linechart.xAxis.valueFormatter = IndexAxisValueFormatter(months)
-            binding.linechart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-            binding.linechart.axisRight.isEnabled = false
-            binding.linechart.description.isEnabled = false
-            binding.linechart.invalidate()
+            binding.linechart.apply {
+                this.data = LineData(lineDataSet)
+                xAxis.valueFormatter = IndexAxisValueFormatter(data.monthlySpend.keys.toList())
+                xAxis.position = XAxis.XAxisPosition.BOTTOM
+                xAxis.granularity = 1f
+                axisRight.isEnabled = false
+                description.isEnabled = false
+                animateX(600)
+                invalidate()
+            }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
