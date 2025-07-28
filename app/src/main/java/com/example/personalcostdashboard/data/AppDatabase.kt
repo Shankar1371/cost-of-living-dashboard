@@ -1,16 +1,17 @@
 package com.example.personalcostdashboard.data
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+import androidx.room.*
 import com.example.personalcostdashboard.ui.Settings.UserSettings
 import com.example.personalcostdashboard.data.Converters
 import com.example.personalcostdashboard.ui.Settings.SettingsDao
 
-@Database(entities = [Expense::class, UserSettings::class], version = 1, exportSchema = false)
-@TypeConverters(Converters::class)  // If you're using Date or other complex types
+@Database(
+    entities = [Expense::class, UserSettings::class],
+    version = 2,
+    exportSchema = false
+)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun expenseDao(): ExpenseDao
@@ -26,7 +27,10 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "personal_cost_dashboard_db"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration() // ⬅️ Wipe + rebuild DB on version change
+                    .build()
+
                 INSTANCE = instance
                 instance
             }

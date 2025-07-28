@@ -141,8 +141,8 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/ic_trending_down"
-                        android:tint="@color/error"
-                        android:layout_marginBottom="12dp" />
+                        android:layout_marginBottom="12dp"
+                        app:tint="@color/error" />
 
                     <TextView
                         android:layout_width="wrap_content"
