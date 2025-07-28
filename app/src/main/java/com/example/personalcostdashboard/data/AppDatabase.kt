@@ -5,13 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.personalcostdashboard.ui.Settings.UserSettings
 import com.example.personalcostdashboard.data.Converters
+import com.example.personalcostdashboard.ui.Settings.SettingsDao
 
-@Database(entities = [Expense::class], version = 1, exportSchema = false)
+@Database(entities = [Expense::class, UserSettings::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)  // If you're using Date or other complex types
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun expenseDao(): ExpenseDao
+    abstract fun settingsDao(): SettingsDao
 
     companion object {
         @Volatile
