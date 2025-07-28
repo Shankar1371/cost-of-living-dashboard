@@ -20,8 +20,4 @@ interface ExpenseDao {
 
     @Query("DELETE FROM expenses")
     suspend fun deleteAll()
-
-    @Query("SELECT * FROM expenses ORDER BY dateString DESC LIMIT :limit")
-    fun getRecentExpenses(limit: Int): LiveData<List<Expense>>
-
 }

@@ -31,14 +31,14 @@ class HistoryFragment : Fragment(), OnExpenseClickListener {
     }
 
     private fun setupRecyclerView() {
-        adapter = ExpenseAdapter(this) // ListAdapter doesn't need data on init
+        adapter = ExpenseAdapter(emptyList(), this) // Pass listener here
         binding.recyclerViewHistory.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewHistory.adapter = adapter
     }
 
     private fun observeExpenses() {
         viewModel.expenses.observe(viewLifecycleOwner) { expenses ->
-            adapter.submitList(expenses)
+            adapter.updateExpenses(expenses)
         }
     }
 

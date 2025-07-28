@@ -2,21 +2,23 @@ package com.example.personalcostdashboard.ui.History
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.personalcostdashboard.data.Expense
 import com.example.personalcostdashboard.databinding.ItemExpenseBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-// Optional listener interface for edit/delete actions
+// Interface for handling clicks
 interface OnExpenseClickListener {
     fun onEditClick(expense: Expense)
     fun onDeleteClick(expense: Expense)
 }
 
 class ExpenseAdapter(
-    private val listener: OnExpenseClickListener? = null // Optional for Dashboard
-) : ListAdapter<Expense, ExpenseAdapter.ExpenseViewHolder>(DiffCallback) {
+    private var expenses: List<Expense>,
+    private val listener: OnExpenseClickListener
+) : RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder>() {
 
     inner class ExpenseViewHolder(val binding: ItemExpenseBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -27,35 +29,25 @@ class ExpenseAdapter(
     }
 
     override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
-        val expense = getItem(position)
+        val expense = expenses[position]
+
+        holder.binding.textViewDate.text=expense.dateString;
 
         with(holder.binding) {
             textViewTitle.text = expense.description
             textViewDate.text = expense.dateString
             textViewAmount.text = "$${"%.2f".format(expense.amount)}"
 
-            // Show or hide buttons based on whether a listener is passed
-            btnEdit.apply {
-                visibility = if (listener != null) ViewGroup.VISIBLE else ViewGroup.GONE
-                setOnClickListener { listener?.onEditClick(expense) }
-            }
-
-            btnDelete.apply {
-                visibility = if (listener != null) ViewGroup.VISIBLE else ViewGroup.GONE
-                setOnClickListener { listener?.onDeleteClick(expense) }
-            }
+            // Click listeners for Edit and Delete
+            btnEdit.setOnClickListener { listener.onEditClick(expense) }
+            btnDelete.setOnClickListener { listener.onDeleteClick(expense) }
         }
     }
-
-    companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<Expense>() {
-            override fun areItemsTheSame(oldItem: Expense, newItem: Expense): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: Expense, newItem: Expense): Boolean {
-                return oldItem == newItem
-            }
-        }
+    fun updateExpenses(newExpenses: List<Expense>) {
+        expenses = newExpenses
+        notifyDataSetChanged()
     }
+
+
+    override fun getItemCount(): Int = expenses.size
 }

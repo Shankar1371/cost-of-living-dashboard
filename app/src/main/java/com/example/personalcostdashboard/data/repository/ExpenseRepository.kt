@@ -24,10 +24,6 @@ class ExpenseRepository(private val expenseDao: ExpenseDao) {
         expenseDao.deleteExpense(expense)
     }
 
-    fun getRecentExpenses(limit: Int): LiveData<List<Expense>> {
-        return expenseDao.getRecentExpenses(limit)
-    }
-
     // Optional: Delete all expenses
     suspend fun deleteAllExpenses() {
         expenseDao.deleteAll()
