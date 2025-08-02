@@ -1,39 +1,53 @@
 # Cost of Living Dashboard
 
-Cost of Living Dashboard is an Android application designed to help users monitor and analyze their personal expenses alongside public cost-of-living indicators such as inflation and rent trends. The goal of the project is to provide a single place where individuals can view both their own spending data and broader economic information so that they can make informed financial decisions.
+Cost of Living Dashboard is an Android application that helps people understand how changes in prices impact their everyday lives. The app combines personal expense tracking with public cost-of-living indicators so users can view their own spending alongside broader economic trends.
 
-## Project Idea
+## Why It Matters
 
-Many people struggle to keep track of rising living expenses and how those changes impact their personal budgets. This project aims to create an easy-to-use dashboard that combines:
+Keeping a budget is hard when prices for rent, groceries, and utilities are constantly shifting. This project aims to give individuals a single place to:
 
-- **Personal expenses** entered by the user.
-- **Local market trends** such as price changes in groceries or utilities.
-- **Inflation and rent indices** retrieved from public sources.
+* record daily purchases,
+* watch how local markets evolve, and
+* make informed decisions about future spending.
 
-By aggregating these data points, the app offers real-time insights into how costs are evolving and where the user's money is going. Historical data is stored locally so the app can display trends over time, provide simple analytics, and send alerts when significant changes occur.
+By bringing these data points together, the application turns raw numbers into actionable insight that can improve financial awareness and planning.
 
-## End Goal
+## Features
 
-The ultimate objective of Cost of Living Dashboard is to empower users with actionable information about their finances. The app is intended to:
+* **Personal expense tracking** – log purchases with categories and notes.
+* **Public cost-of-living data** – view inflation, rent, and other indices from open data sources.
+* **Trend analysis** – charts and history views show how costs change over time.
+* **Budgeting tools** – set spending limits and receive alerts when approaching them.
+* **Offline-first design** – all data is stored locally with Room so the core features work without a network connection.
 
-1. Present a clear overview of day-to-day spending.
-2. Compare personal expenses with city or region level statistics.
-3. Help users set budgeting goals and track progress toward them.
-4. Give warnings or recommendations when costs change dramatically.
+## Technology Stack
 
-With these features, students, professionals, and families can better understand their cost of living and plan accordingly.
+The app is built with the modern Android toolchain:
 
-## Building the Project
+* Kotlin language
+* MVVM architecture with ViewModel and LiveData
+* Navigation component for in-app movement
+* Room database for persistent storage
+* Material Design components for a familiar user experience
 
-This repository contains a standard Android Studio project. To build and run the application locally:
+## Getting Started
 
-1. Install [Android Studio](https://developer.android.com/studio) (Electric Eel or newer recommended).
+1. Install [Android Studio](https://developer.android.com/studio) (Electric Eel or newer is recommended).
 2. Clone this repository.
-3. Open the project in Android Studio and let Gradle download the required dependencies.
-4. Connect an Android device or use the emulator to build and run the app.
+3. Open the project in Android Studio and allow Gradle to sync the dependencies.
+4. Connect an Android device or start the emulator, then run the app from the IDE.
 
-The project uses Kotlin, AndroidX libraries, Navigation components, and Room for local data storage. All dependencies are defined in `app/build.gradle.kts`.
+The main app module and its dependencies are defined in `app/build.gradle.kts`.
+
+## Roadmap
+
+Some features that would further enhance the dashboard include:
+
+* Importing bank statements for automated expense entry.
+* Exporting reports for financial reviews.
+* Cloud backup and multi-device sync.
 
 ## Contributing
 
-Contributions are welcome! If you would like to add features or fix bugs, please open an issue or submit a pull request. Make sure to run the existing unit tests before pushing any changes.
+Contributions of all kinds are welcome. If you plan to open a pull request, please discuss major changes in an issue first and run `./gradlew test` before submitting your work.
+
