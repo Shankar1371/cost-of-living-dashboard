@@ -36,17 +36,20 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val app = requireActivity().application as PersonalCostDashboardApp
+        // Grab the repository from the application
         expenseRepository = app.repository
 
-        // Setup RecyclerView
+        // Setup RecyclerView to display recent transactions
         binding.recyclerViewTransactions.layoutManager = LinearLayoutManager(requireContext())
         transactionAdapter = RecentTransactionAdapter(currencySymbol = "$") // placeholder symbol
         binding.recyclerViewTransactions.adapter = transactionAdapter
 
+        // Start observing data
         observeSettingsAndExpenses()
     }
 
     private fun observeSettingsAndExpenses() {
+        // Observe user settings to retrieve budget and currency
         settingsViewModel.settings.observe(viewLifecycleOwner) { settings ->
             if (settings != null) {
                 val budget = settings.monthlyBudget
@@ -57,6 +60,7 @@ class DashboardFragment : Fragment() {
                 transactionAdapter = RecentTransactionAdapter(currency)
                 binding.recyclerViewTransactions.adapter = transactionAdapter
 
+                // Observe expenses and update the dashboard
                 expenseRepository.getAllExpenses().observe(viewLifecycleOwner) { expenses ->
                     val totalSpent = expenses.sumOf { it.amount }
                     val remaining = budget - totalSpent

@@ -21,11 +21,13 @@ class InflationViewModel : ViewModel() {
     val avgRent: LiveData<String> = _avgRent
 
     private val _rentTrendLineData = MutableLiveData<LineData>().apply {
+        // Provide a mock data set for the rent trend chart
         value = generateMockRentTrend()
     }
     val rentTrendLineData: LiveData<LineData> = _rentTrendLineData
 
     private fun generateMockRentTrend(): LineData {
+        // Create sample data points for six months of rent prices
         val entries = listOf(
             Entry(0f, 1150f),
             Entry(1f, 1175f),
@@ -41,6 +43,7 @@ class InflationViewModel : ViewModel() {
             lineWidth = 2f
             mode = LineDataSet.Mode.CUBIC_BEZIER
         }
+        // Wrap the dataset in LineData for charting
         return LineData(dataSet)
     }
 }

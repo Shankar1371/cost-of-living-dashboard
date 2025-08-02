@@ -11,6 +11,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     val settings: LiveData<UserSettings?> = repository.settings
 
     fun saveSettings(updatedSettings: UserSettings) = viewModelScope.launch {
+        // Persist the provided settings through the repository
         repository.saveSettings(updatedSettings)
     }
 }
