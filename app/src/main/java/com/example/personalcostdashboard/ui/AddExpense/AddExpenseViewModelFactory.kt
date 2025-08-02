@@ -10,6 +10,7 @@ class AddExpenseViewModelFactory(
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AddExpenseViewModel::class.java)) {
+            // Provide an instance of AddExpenseViewModel with the repository
             @Suppress("UNCHECKED_CAST")
             return AddExpenseViewModel(repository) as T
         }

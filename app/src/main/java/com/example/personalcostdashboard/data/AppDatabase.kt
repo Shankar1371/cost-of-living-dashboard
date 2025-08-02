@@ -22,15 +22,18 @@ abstract class AppDatabase : RoomDatabase() {
         private var INSTANCE: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase {
+            // Return the cached instance if available, otherwise build a new one
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "personal_cost_dashboard_db"
                 )
-                    .fallbackToDestructiveMigration() // ⬅️ Wipe + rebuild DB on version change
+                    // Recreate the database if a migration isn't supplied
+                    .fallbackToDestructiveMigration()
                     .build()
 
+                // Store the instance for future use
                 INSTANCE = instance
                 instance
             }

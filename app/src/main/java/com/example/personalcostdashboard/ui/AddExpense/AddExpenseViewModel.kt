@@ -14,16 +14,19 @@ class AddExpenseViewModel(private val repository: ExpenseRepository) : ViewModel
     val selectedDate: LiveData<String> get() = _selectedDate
 
     fun setDate(date: String) {
+        // Update the currently chosen date
         _selectedDate.value = date
     }
 
     fun saveExpense(amount: Double, category: String, description: String, dateString: String) {
+        // Create an Expense entity from the provided form values
         val expense = Expense(
             amount = amount,
             category = category,
             dateString = dateString,
             description = description
         )
+        // Insert the expense on a background thread
         viewModelScope.launch {
             repository.insertExpense(expense)
         }

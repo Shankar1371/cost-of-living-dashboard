@@ -28,11 +28,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inflate layout
+        // Inflate layout and display it
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Setup toolbar
+        // Setup toolbar action button with a placeholder snackbar
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         val repository = ExpenseRepository(database.expenseDao())
         val factory = AddExpenseViewModelFactory(repository)
 
+        // Obtain an AddExpenseViewModel instance
         val viewModel = ViewModelProvider(this, factory)[AddExpenseViewModel::class.java]
 
 
@@ -71,11 +72,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu into the action bar
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        // Delegate the Up button behavior to NavController
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }

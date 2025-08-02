@@ -15,12 +15,14 @@ class HistoryViewModel(application: Application) : AndroidViewModel(application)
     val expenses: LiveData<List<Expense>>
 
     init {
+        // Build the repository and expose all expenses
         val dao = AppDatabase.getDatabase(application).expenseDao()
         repository = ExpenseRepository(dao)
         expenses = repository.getAllExpenses()
     }
 
     fun deleteExpense(expense: Expense) {
+        // Remove the given expense in a coroutine
         viewModelScope.launch {
             repository.deleteExpense(expense)
         }
